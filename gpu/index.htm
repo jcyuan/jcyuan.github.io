@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="origin-trial" content="As1x8LqFb1NcSw08ER4rmHpM00c99gFhYn35YQgC6o/M+4rz2xVrd6j8vtYGSzBLrvTVYaSv+ia3Yzpr35xnkQgAAABfeyJvcmlnaW4iOiJodHRwczovL2pjLXNwYWNlLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViR1BVIiwiZXhwaXJ5IjoxNjQzMTU1MTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZX0=">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGPU</title>
+    <style>
+        body { background-color: #303030; color: #fefefe; }
+    </style>
+</head>
+<body>
+<h1>WebGPU</h1>
+<script>
+window.onload = async () => {
+    const adapter = await navigator.gpu.requestAdapter();
+    console.log(adapter);
+};
+</script>
+</body>
+</html>
