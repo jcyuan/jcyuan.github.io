@@ -71,6 +71,8 @@ const beginGPUWeb = (function() {
         info.push("Limits: ");
         for (const key in device.limits)
             info.push(key + ": " + device.limits[key]);
+
+        retDiv.innerHTML = info.join("<br/>");
     };
 
 })();
