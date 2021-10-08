@@ -63,7 +63,7 @@ const beginGPUWeb = (function() {
         device = await adapter.requestDevice();
 
         const info = ["<strong>Features:</strong>"];
-        if (device.features.length === 0)
+        if (device.features.size === 0)
             info.push("None");
         else {
             device.features.forEach(f => {
