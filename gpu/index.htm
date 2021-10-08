@@ -63,8 +63,10 @@ const beginGPUWeb = (function() {
         device = await adapter.requestDevice();
 
         const info = ["Features: "];
-        for (const key in device.features)
-            info.push(key + ": " + device.features[key]);
+        device.features.forEach(f => {
+            info.push(f);
+        })
+        
         info.push("");
         info.push("Limits: ");
         for (const key in device.limits)
