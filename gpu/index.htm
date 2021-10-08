@@ -62,7 +62,7 @@ const beginGPUWeb = (function() {
         const adapter = await navigator.gpu.requestAdapter();
         device = await adapter.requestDevice();
 
-        const info = ["<h4>Features:</h4>"];
+        const info = ["<strong>Features:</strong>"];
         if (device.features.length === 0)
             info.push("None");
         else {
@@ -72,7 +72,7 @@ const beginGPUWeb = (function() {
         }
         
         info.push("");
-        info.push("<h4>Limits:</h4>");
+        info.push("<strong>Limits:</strong>");
         for (const key in device.limits)
             info.push(key + ": " + device.limits[key]);
 
