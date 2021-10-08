@@ -11,13 +11,67 @@
     </style>
 </head>
 <body>
-<h1>WebGPU</h1>
+<h2>WebGPU</h2>
+<div id="warning"></div>
+<div id="result"></div>
 <script>
-window.onload = async () => {
-    const adapter = await navigator.gpu.requestAdapter();
-    console.log(adapter);
-    alert(adapter);
+const availVersion = [94, 0, 4606, 81];
+
+let warnDiv;
+window.onload = () => {
+    warnDiv = document.getElementById("warning");
+
+    const detectRet = detectVersion();
+    if (detectRet) {
+        warnDiv.innerText = "Browser not match: " + detectRet;
+    } else {
+        const retDiv = document.getElementById("result");
+        beginGPUWeb(retDiv);
+    }
 };
+
+function detectVersion() {
+    let v = navigator.appVersion || "";
+    v = v.match(/\sChrome\/([\d\.]+?)\s/);
+    if (!v || v.length < 2)
+        return "chrome needed (version >= " + availVersion.join('.') + ")";
+
+    v = v[1].split('.');
+    if (v.length !== availVersion.length)
+        return "chrome version not match";
+
+    v.forEach((n, i) => {
+        v[i] = parseInt(n, 10);
+    });
+
+    if (v[0] < availVersion[0]
+        || (v[0] >= availVersion[0] && parseInt(v[1], 10) < availVersion[1])
+        || (v[0] >= availVersion[0] && parseInt(v[1], 10) >= availVersion[1] && parseInt(v[2], 10) < availVersion[2])
+        || (v[0] >= availVersion[0] && parseInt(v[1], 10) >= availVersion[1] && parseInt(v[2], 10) >= availVersion[2] && parseInt(v[3], 10) < availVersion[3]))
+    {
+        return "chrome version not up to date, please update to newest version which is greater then " + availVersion.join('.');
+    }
+
+    return null;
+}
+
+const beginGPUWeb = (function() {
+    let device;
+
+    return async function (retDiv) {
+        const adapter = await navigator.gpu.requestAdapter();
+        device = await adapter.requestDevice();
+
+        const info = ["Features: "];
+        for (const key in device.features)
+            info.push(key + ": " + device.features[key]);
+        info.push("");
+        info.push("Limits: ");
+        for (const key in device.limits)
+            info.push(key + ": " + device.limits[key]);
+    };
+
+})();
 </script>
 </body>
 </html>
